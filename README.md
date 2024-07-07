@@ -1,0 +1,1 @@
+An implementation of SHA-256 hashing algorithm in golang
