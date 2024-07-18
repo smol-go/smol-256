@@ -6,7 +6,33 @@ type Sha256 struct {
 	Digest [32]byte
 }
 
-func (sha256 *Sha256) Hash(msg string) [32]byte {
+func to_bytes(hash [8]uint32) [32]byte {
+	var arr [32]byte
+
+	for i, v := range hash {
+		arr[4*i] = byte(v >> 24)
+		arr[4*i+1] = byte(v >> 16)
+		arr[4*i+2] = byte(v >> 8)
+		arr[4*i+3] = byte(v >> 0)
+	}
+
+	return arr
+}
+
+func to_hex_string(hash [32]byte) string {
+	str := "0x"
+
+	if len(hash) != 0 {
+		for _, v := range hash {
+			hStr := fmt.Sprintf("%x", v)
+			str += hStr
+		}
+	}
+
+	return str
+}
+
+func (sha256 *Sha256) hash(msg string) [32]byte {
 	K := [64]uint32{
 		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
 		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
