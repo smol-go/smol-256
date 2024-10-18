@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/themillenniumfalcon/smol-256/algo"
@@ -17,5 +18,7 @@ func main() {
 		str = os.Args[1]
 	}
 
-	sha.Hash(str)
+	hash := sha.Hash(str)
+
+	fmt.Println(algo.ToHexString(hash))
 }
